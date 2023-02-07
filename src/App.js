@@ -1,23 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React JS
-        </a>
-      </header>
+    <div className='todoapp stack-large'>
+      <h1>TodoMatic</h1>
+      <form>
+        <h2 className='label-wrapper'>
+          <label htmlFor='new-todo-input' className='label__lg'>
+            What needs to be done?
+          </label>
+        </h2>
+        <input
+        id='new-todo-input'
+        className='input input__lg'
+        name='text'
+        autoComplete='off'
+        type="text"
+        />
+        <button type='submit' className='btn btn__primary btn__lg'>
+          Add
+        </button>
+      </form>
+      <div className='filters btn-group stack-exception'>
+        <button type='button' className='btn toggle-btn' aria-pressed='false'>
+          <span className='visually-hidden'>Show</span>
+          <span>all</span>
+          <span className='visually-hidden'>tasks</span>
+          <span></span>
+        </button>
+      </div>
     </div>
   );
 }
