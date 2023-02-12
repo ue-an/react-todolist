@@ -1,24 +1,12 @@
 import React from "react";
 
-const FilterButton = (props) => {
+const FilterButton = props => {
  return (
-  <div className='filters btn-group stack-exception'>
-        <button type='button' className='btn toggle-btn' aria-pressed='true'>
+        <button type='button' className='btn toggle-btn' aria-pressed={ props.pressed } id={props.id}>
           <span className='visually-hidden'>Show </span>
-          <span>all</span>
+          <span>{ props.label }</span>
           <span className='visually-hidden'> tasks</span>
         </button>
-        <button type='button' className='btn toggle-btn' aria-pressed='true'>
-          <span className='visually-hidden'>Show </span>
-          <span>Active</span>
-          <span className='visually-hidden'> tasks</span>
-        </button>
-        <button type='button' className='btn toggle-btn' aria-pressed='true'>
-          <span className='visually-hidden'>Show </span>
-          <span>Completed</span>
-          <span className='visually-hidden'> tasks</span>
-        </button>
-      </div>
  );
 }
 
