@@ -10,16 +10,10 @@ const DATA = [
   {id: "todo-2", name: "Repeat", completed: false}
 ];
 
-const FILTERBTNS = [
-  {label: "all", pressed: "true", id: "fbtn-0"},
-  {label: "active", pressed: "false", id: "fbtn-1"},
-  {label: "completed", pressed: "false", id: "fbtn-2"},
-];
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App tasks={DATA} filterbtns={FILTERBTNS}/>
+    <App tasks={DATA} />
   </React.StrictMode>
 );
 

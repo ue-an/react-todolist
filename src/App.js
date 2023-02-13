@@ -6,6 +6,13 @@ import { FilterButton } from './components/FilterButtons';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
+const FILTER_MAP = {
+  All: () => true,
+  Active: (task) => !task.completed,
+  Completed: (task) => task.completed
+}
+const FILTER_NAMES = Object.keys(FILTER_MAP);
+
 function App(props) {
   /* ADD & TOGGLE FUNC*/
   const [tasks, setTasks] = useState(props.tasks);
@@ -43,9 +50,32 @@ function App(props) {
     setTasks(remainingTasks);
   }
 
+  /* EDIT FUNC */
+  const editTask = (id, newName) => {
+    const editedTaskList = tasks.map((task) => {
+      if (id === task.id) {
+        //
+        return {...task, name: newName}
+      }
+      return task;
+    });
+    setTasks(editedTaskList);
+  }
+
+  const [filter, setFilter] = useState('All');
+  const filterList = FILTER_NAMES.map((name) => (
+    <FilterButton
+    key={name}
+    name={name} 
+    isPressed={name === filter}
+    setFilter={setFilter}
+    />
+  ));
+
   //displays data in browser>inspect>console
   // console.log(props.tasks);
-  const taskList = tasks?.map((task) => (
+  const taskList = tasks?.filter(FILTER_MAP[filter])
+  .map((task) => (
   <Todo
   id={task.id}
   name={task.name}
@@ -53,13 +83,7 @@ function App(props) {
   key={task.id}
   toggleTaskCompleted={toggleTaskCompleted}
   deleteTask={deleteTask}
-  />));
-  const filterbtnsList = props.filterbtns?.map((filterbtn) => (
-  <FilterButton
-  label={filterbtn.label}
-  pressed={filterbtn.pressed}
-  id={filterbtn.id}
-  key={filterbtn.id}
+  editTask={editTask}
   />));
 
   let taskNoun = taskList.length !== 1 ? 'tasks' : 'task';
@@ -77,7 +101,7 @@ function App(props) {
         {/* <FilterButton label="all" pressed="true"/>
         <FilterButton label="active" pressed="false"/>
         <FilterButton label="completed" pressed="false"/> */}
-        {filterbtnsList}
+        {filterList}
       </div>
       <h2 id='list-heading'>{ headingText }</h2>
       <ul role="list"
