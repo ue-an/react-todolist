@@ -7,14 +7,24 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 function App(props) {
+  /* ADD & TOGGLE FUNC*/
   const [tasks, setTasks] = useState(props.tasks);
 
   const addTask = name => {
-    const newTask = { id: `todo-${nanoid()}`, name, completed: false};
+    const newTask = {
+      id: `todo-${nanoid()}`,
+      name,
+      completed: false
+    };
     setTasks([...tasks, newTask]);
   }
 
   const toggleTaskCompleted = id => {
+    //checks browser synchronization
+    // const stats = tasks.map((task) => {
+    //   return (task["completed"]);
+    // })
+    // console.log(stats);
     const updatedTasks = tasks.map((task) => {
       //if this task has the same ID as the edited task
       if(id === task.id){
@@ -27,6 +37,12 @@ function App(props) {
     setTasks(updatedTasks);
   }
 
+  /* DELETE FUNC */
+  const deleteTask = id => {
+    const remainingTasks = tasks.filter((task) => id !== task.id);
+    setTasks(remainingTasks);
+  }
+
   //displays data in browser>inspect>console
   // console.log(props.tasks);
   const taskList = tasks?.map((task) => (
@@ -36,6 +52,7 @@ function App(props) {
   completed={task.completed}
   key={task.id}
   toggleTaskCompleted={toggleTaskCompleted}
+  deleteTask={deleteTask}
   />));
   const filterbtnsList = props.filterbtns?.map((filterbtn) => (
   <FilterButton
